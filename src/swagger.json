@@ -1,0 +1,149 @@
+{
+    "openapi": "3.0.0",
+    "info":{
+        "title":"User Challenger Solid Documentation",
+        "description": "This is a user challenger",
+        "version":"1.0.0",
+        "contact":{
+            "email":"teste@teste.com.br"
+        }
+    },
+    "paths":{
+        "/users":{
+            "post":{
+                "tags":["User"],
+                "summary":"Create a user",
+                "description":"Create a new User",
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type":"object",
+                                "properties":{
+                                    "name":{
+                                        "type":"string"
+                                    },
+                                    "email":{
+                                        "type":"string"
+                                    }
+                                },
+                                "example":{
+                                    "name":"Jose da Silva",
+                                    "email":"josedasilva@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description":"Created"
+                    },
+                    "400":{
+                        "description":"User already exists!"
+                    }
+                }
+            },
+            "get":{
+                "tags":["User"],
+                "summary":"List all users",
+                "description":"List all users",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "header",
+                      "description": "Id do usuário",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      },
+                      "example": "6c8dfa5b-6787-4a95-94d1-75fd93b605ec"
+                    }
+                  ],
+                "responses":{
+                    "200":{
+                        "description":"Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"array",
+                                    "items":{
+                                        "type":"object",
+                                        "properties":{
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "email":{
+                                                "type":"string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }   
+                        }
+                    },
+                    "400":{
+                        "description":"Credential failed"
+                    }
+
+                }
+
+            }
+        },
+        "/users/{user_id}/admin":{
+            "patch":{
+                "tags":["User"],
+                "summary":"Turn user an admin",
+                "description":"Add for an user an admin role",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "path",
+                      "description": "Id do usuário",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      },
+                      "example": "6c8dfa5b-6787-4a95-94d1-75fd93b605ec"
+                    }
+                  ],
+                "responses": {
+                    "200": {
+                        "description":"User updated"
+                    },
+                    "404":{
+                        "description":"Not found"
+                    }
+                }
+            }
+        },
+        "/users/{user_id}":{
+            "get":{
+                "tags":["User"],
+                "summary":"Get user profile",
+                "description":"Get the profile of an user",
+                "parameters": [
+                    {
+                      "name": "user_id",
+                      "in": "path",
+                      "description": "Id do usuário",
+                      "required": true,
+                      "schema": {
+                        "type": "string"
+                      },
+                      "example": "6c8dfa5b-6787-4a95-94d1-75fd93b605ec"
+                    }
+                  ],          
+                "responses": {
+                    "200": {
+                        "description":"OK"
+                    },
+                    "404":{
+                        "description":"Not found!"
+                    }
+                }
+            }
+        }
+
+    }
+}
